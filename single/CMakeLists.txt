@@ -1,10 +1,8 @@
 PROJECT("single")
 
-set(CMAKE_MSVCIDE_RUN_PATH ${PROJECT_SOURCE_DIR}/../data)
-
 set(src
-	#single_list.cpp
-	#single_list.h
+	single_list.cpp
+	single_list.h
 	single_receiver.cpp
 )
 
