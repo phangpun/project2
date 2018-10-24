@@ -85,7 +85,7 @@ public:
 	void d_list_insert_back(d_list_elem *elem); //same with double_list.h / double_list.cpp
 
 	d_list_elem* d_list_front(void); //same with double_list.h / double_list.cpp
-	bool double_list::d_list_empty(void); //same with double_list.h / double_list.cpp
+	bool d_list_empty(void); //same with double_list.h / double_list.cpp
 
 
 	//custom iterator implementation
