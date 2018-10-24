@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
 			//if adjacent data have same number of packet
 			//delete the previous data
 			if (Present_packet_num == Next_packet_num) {
-				Target_List->list_remove(Present_Element);//head is strange
+				Target_List->list_remove(Present_Element);
 				Present_Element = Next_Element;
 				Present_packet_num = Target_List->list_get_data2(Present_Element);
 				continue;
