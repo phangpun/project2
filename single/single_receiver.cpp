@@ -90,16 +90,18 @@ int main(int argc, char* argv[])
 		single_list* New_List = new single_list;
 		Message_Sorted_List[i] = New_List;
 	}
-	Message_Sorted_List[1];
+	
 	
 
 	list_elem *Input_Element = Input_List.list_head();
 	list_elem *Next_Input_Element = NULL;
 
 	while (!Input_List.list_empty()) {
+		Next_Input_Element = Input_List.list_next(Input_Element);
+
 		int Message_Num = Input_List.list_get_data1(Input_Element);
 		
-		Next_Input_Element = Input_List.list_next(Input_Element);
+		
 
 		list_elem *Sorted_Element = new list_elem(*Input_Element);
 
@@ -126,33 +128,32 @@ int main(int argc, char* argv[])
 		int Present_packet_num = Target_List->list_get_data2(Present_Element);
 		int Next_packet_num = 0;
 		
-		while (Present_Element != NULL) {
+		while (Target_List->list_next(Present_Element) != NULL) {
 			Next_Element = Target_List->list_next(Present_Element);
-			if (Next_Element == NULL) break;
 			Next_packet_num = Target_List->list_get_data2(Next_Element);
 
 
 				
 			if (Present_packet_num == Next_packet_num) {
-				Target_List->list_remove(Present_Element);
+				Target_List->list_remove(Present_Element);//head is strange
 				Present_Element = Next_Element;
 				Present_packet_num = Target_List->list_get_data2(Present_Element);
 				continue;
 			}
 			else if (Present_packet_num > Next_packet_num) {
 				list_elem* Element = new list_elem(*Next_Element);
-				Target_List->list_remove(Next_Element);
 				Target_List->list_insert_before(Present_Element, Element);
+				
+
+				Target_List->list_remove(Next_Element);
 					
 				if (Before_Element == NULL) {
-					Next_Element = Present_Element;
 					Present_Element = Element;
 					Present_packet_num = Target_List->list_get_data2(Present_Element);
 					continue;
 				}
 				else {
 					Present_Element = Before_Element;
-					Next_Element = Element;
 					Present_packet_num = Target_List->list_get_data2(Present_Element);
 
 					Before_Element = Target_List->list_head();
@@ -165,14 +166,11 @@ int main(int argc, char* argv[])
 							Before_Element = Target_List->list_next(Before_Element);
 						}
 					}
-
-
 					continue;
 				}
 			}
 			
 			Before_Element = Present_Element;
-
 			Present_Element = Next_Element;
 			Present_packet_num = Next_packet_num;
 		}

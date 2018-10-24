@@ -39,6 +39,7 @@ using namespace std;
 single_list::single_list()
 {
   /*** MODIFY HERE ***/
+	
 	head = NULL;
 }
 
@@ -46,14 +47,12 @@ single_list::~single_list()
 {
   /*** MODIFY HERE ***/
 	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* next_element_pointer = NULL;
-
+	list_elem* next_element_pointer = NULL;
+	if (element_pointer != NULL) {
 		while (element_pointer != NULL) {
 			next_element_pointer = element_pointer->next;
 			delete element_pointer;
 			element_pointer = next_element_pointer;
-			
 		}
 	}
 }
@@ -62,72 +61,21 @@ int
 single_list::list_get_data1(list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* next_element_pointer = NULL;
-		
-		while (element_pointer!= NULL) {//여기가 문제. 마지막에서 두번 째 element는
-			next_element_pointer = element_pointer->next;
-
-			bool condition1 = (element_pointer->data1 == elem->data1);
-			bool condition2 = (element_pointer->data2 == elem->data2);
-			bool condition3 = (element_pointer->data3 == elem->data3);
-
-			if (condition1 && condition2 && condition3) return element_pointer->data1;
-			
-			element_pointer = next_element_pointer;
-			
-		}
-	}
-
-	return 0;
+	return elem->data1;
 }
 
 int
 single_list::list_get_data2(list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* next_element_pointer = NULL;
-
-		while (element_pointer != NULL) {
-			next_element_pointer = element_pointer->next;
-			
-			bool condition1 = (element_pointer->data1 == elem->data1);
-			bool condition2 = (element_pointer->data2 == elem->data2);
-			bool condition3 = (element_pointer->data3 == elem->data3);
-
-			if (condition1 && condition2 && condition3) return element_pointer->data2;
-
-			element_pointer = next_element_pointer;
-		}
-	}
-	return 0;
+	return elem->data2;
 }
 
 string
 single_list::list_get_data3(list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* next_element_pointer = NULL;
-
-		while (element_pointer != NULL) {
-			next_element_pointer = element_pointer->next;
-			
-			bool condition1 = (element_pointer->data1 == elem->data1);
-			bool condition2 = (element_pointer->data2 == elem->data2);
-			bool condition3 = (element_pointer->data3 == elem->data3);
-
-			if (condition1 && condition2 && condition3) return element_pointer->data3;
-
-			element_pointer = next_element_pointer;
-			
-		}
-	}
-	return "";
+	return elem->data3;
 }
 
 
@@ -136,25 +84,7 @@ list_elem *
 single_list::list_next (list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* next_element_pointer = NULL;
-
-		while (element_pointer != NULL) {
-			next_element_pointer = element_pointer->next;
-			
-			bool condition1 = (element_pointer->data1 == elem->data1);
-			bool condition2 = (element_pointer->data2 == elem->data2);
-			bool condition3 = (element_pointer->data3 == elem->data3);
-
-			if (condition1 && condition2 && condition3) return element_pointer->next;
-
-			element_pointer = next_element_pointer;
-			
-		}
-	}
-
-	return NULL;
+	return elem->next;
 }
 
 
@@ -172,6 +102,7 @@ void
 single_list::list_insert_front (list_elem *elem)
 {
     /*** MODIFY HERE ***/
+
 	elem->next = head;
 	head = elem;
 }
@@ -182,35 +113,16 @@ void
 single_list::list_insert_before (list_elem *before, list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* before_element_pointer = NULL;
-		list_elem* next_element_pointer = NULL;
-
-		while (element_pointer!= NULL) {
-			next_element_pointer = element_pointer->next;
-			
-			bool condition1 = (element_pointer->data1 == before->data1);
-			bool condition2 = (element_pointer->data2 == before->data2);
-			bool condition3 = (element_pointer->data3 == before->data3);
-
-			if (condition1 && condition2 && condition3) {
-				if (element_pointer == head) {
-					head = elem;
-				}
-				else {
-					before_element_pointer->next = elem;
-				}
-
-				elem->next = element_pointer;
-				return;
-			}
-
-			before_element_pointer = element_pointer;
-			element_pointer = next_element_pointer;
-
-			
+	if (before == head) {
+		list_insert_front(elem);
+	}
+	else {
+		list_elem* prev_pointer = head;
+		while (prev_pointer->next != before) {
+			prev_pointer = prev_pointer->next;
 		}
+		elem->next = before;
+		prev_pointer->next = elem;
 	}
 }
 
@@ -220,33 +132,8 @@ void
 single_list::list_insert_after (list_elem *after, list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* next_element_pointer = NULL;
-
-		while (element_pointer != NULL) {
-			next_element_pointer = element_pointer->next;
-			
-			bool condition1 = (element_pointer->data1 == after->data1);
-			bool condition2 = (element_pointer->data2 == after->data2);
-			bool condition3 = (element_pointer->data3 == after->data3);
-
-			if (condition1 && condition2 && condition3) {
-				if (next_element_pointer == NULL) {
-					elem->next = NULL;
-				}
-				else {
-					elem->next = element_pointer->next;
-				}
-
-				element_pointer->next = elem;
-				return;
-			}
-
-			element_pointer = next_element_pointer;
-			
-		}
-	}
+	elem->next = after->next;
+	after->next = elem;
 }
 
 /* Replace FROM with TO and destruct FROM */
@@ -254,35 +141,19 @@ void
 single_list::list_replace (list_elem *from, list_elem *to)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* before_element_pointer = NULL;
-		list_elem* next_element_pointer = NULL;
-
-		while (element_pointer != NULL) {
-			next_element_pointer = element_pointer->next;
-			
-			bool condition1 = (element_pointer->data1 == from->data1);
-			bool condition2 = (element_pointer->data2 == from->data2);
-			bool condition3 = (element_pointer->data3 == from->data3);
-
-			if (condition1 && condition2 && condition3) {
-				if (element_pointer == head) {
-					to->next = element_pointer->next;
-					head = to;
-				}
-				else {
-					to->next = element_pointer->next;
-					before_element_pointer = to;
-				}
-				delete element_pointer;
-				return;
-			}
-
-			before_element_pointer = element_pointer;
-			element_pointer = next_element_pointer;
-			
+	if (from == head) {
+		head = to;
+		to->next = from->next;
+		delete from;
+	}
+	else {
+		list_elem* prev_pointer = head;
+		while (prev_pointer->next != from) {
+			prev_pointer = prev_pointer->next;
 		}
+		prev_pointer->next = to;
+		to->next = from->next;
+		delete from;
 	}
 }
 
@@ -292,35 +163,18 @@ void
 single_list::list_remove (list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	list_elem* element_pointer = head;
-	if (head != NULL) {
-		list_elem* before_element_pointer = NULL;
-		list_elem* next_element_pointer = NULL;
-
-		while (element_pointer != NULL) {
-			next_element_pointer = element_pointer->next;
-			
-			bool condition1 = (element_pointer->data1 == elem->data1);
-			bool condition2 = (element_pointer->data2 == elem->data2);
-			bool condition3 = (element_pointer->data3 == elem->data3);
-
-			if (condition1 && condition2 && condition3) {
-				if (element_pointer == head) {
-					head = element_pointer->next;
-				}
-				else {
-					before_element_pointer->next = next_element_pointer;
-				}
-				delete element_pointer;
-				return;
-			}
-
-			before_element_pointer = element_pointer;
-			element_pointer = next_element_pointer;
-			
-		}
+	if (elem == head) {
+		head = elem->next;
+		delete elem;
 	}
-
+	else {
+		list_elem* prev_pointer = head;
+		while (prev_pointer->next != elem) {
+			prev_pointer = prev_pointer->next;
+		}
+		prev_pointer->next = elem->next;
+		delete elem;
+	}
 }
 
 /* Returns true if LIST is empty, false otherwise. */
