@@ -77,57 +77,21 @@ int
 double_list::d_list_get_data1(d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
-	
-	while (target != tail){
-		bool condition1 = (target->data1 == elem->data1);
-		bool condition2 = (target->data2 == elem->data2);
-		bool condition3 = (target->data3 == elem->data3);
-
-		if (condition1 && condition2 && condition3) return target->data1;
-
-		target = target->next;
-	}
-
-	return 0;
+	return elem->data1;
 }
 
 int
 double_list::d_list_get_data2(d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
-
-	while (target != tail) {
-		bool condition1 = (target->data1 == elem->data1);
-		bool condition2 = (target->data2 == elem->data2);
-		bool condition3 = (target->data3 == elem->data3);
-
-		if (condition1 && condition2 && condition3) return target->data2;
-
-		target = target->next;
-	}
-
-	return 0;
+	return elem->data2;
 }
 
 string
 double_list::d_list_get_data3(d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
-
-	while (target != tail) {
-		bool condition1 = (target->data1 == elem->data1);
-		bool condition2 = (target->data2 == elem->data2);
-		bool condition3 = (target->data3 == elem->data3);
-
-		if (condition1 && condition2 && condition3) return target->data3;
-
-		target = target->next;
-	}
-
-	return "";
+	return elem->data3;
 }
 
 /* Returns the element before ELEM in its list. If ELEM is the first 
@@ -137,21 +101,7 @@ d_list_elem *
 double_list::d_list_prev (d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
-
-	while (target != tail) {
-		bool condition1 = (target->data1 == elem->data1);
-		bool condition2 = (target->data2 == elem->data2);
-		bool condition3 = (target->data3 == elem->data3);
-
-		if (condition1 && condition2 && condition3) {
-			return target->prev;
-		}
-
-		target = target->next;
-	}
-
-	return NULL;
+	return elem->prev;
 }
 
 /* Returns the element after ELEM in its list. If ELEM is the last
@@ -161,21 +111,7 @@ d_list_elem *
 double_list::d_list_next (d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
-
-	while (target != tail) {
-		bool condition1 = (target->data1 == elem->data1);
-		bool condition2 = (target->data2 == elem->data2);
-		bool condition3 = (target->data3 == elem->data3);
-
-		if (condition1 && condition2 && condition3) {
-			return target->next;
-		}
-
-		target = target->next;
-	}
-
-	return NULL;
+	return elem->next;
 }
 
 
@@ -246,26 +182,11 @@ void
 double_list::d_list_insert_before (d_list_elem *before, d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = tail->prev;
-
-	while (target != head) {
-		bool condition1 = (target->data1 == before->data1);
-		bool condition2 = (target->data2 == before->data2);
-		bool condition3 = (target->data3 == before->data3);
-
-		if (condition1 && condition2 && condition3) {
-			elem->next = target;
-			elem->prev = target->prev;
-
-			(target->prev)->next = elem;
-			target->prev = elem;
-			return;
-		}
-
-		target = target->prev;
-	}
-
-	return;
+	elem->next = before;
+	elem->prev = before->prev;
+	
+	(before->prev)->next = elem;
+	before->prev = elem;
 }
 
 /* Insert ELEM just after AFTER, which may be either an interior
@@ -275,26 +196,11 @@ void
 double_list::d_list_insert_after (d_list_elem *after, d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
+	elem->next = after->next;
+	elem->prev = after;
 
-	while (target != tail) {
-		bool condition1 = (target->data1 == after->data1);
-		bool condition2 = (target->data2 == after->data2);
-		bool condition3 = (target->data3 == after->data3);
-
-		if (condition1 && condition2 && condition3) {
-			elem->next = target->next;
-			elem->prev = target;
-
-			(target->next)->prev = elem;
-			target->next = elem;
-			return;
-		}
-
-		target = target->next;
-	}
-
-	return;
+	(after->next)->prev = elem;
+	after->prev = elem;
 }
 
 /* Replace FROM with TO and destruct FROM*/
@@ -302,28 +208,13 @@ void
 double_list::d_list_replace (d_list_elem *from, d_list_elem *to)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
+	to->next = from->next;
+	to->prev = from->prev;
 
-	while (target != tail) {
-		bool condition1 = (target->data1 == from->data1);
-		bool condition2 = (target->data2 == from->data2);
-		bool condition3 = (target->data3 == from->data3);
+	(from->next)->prev = to;
+	(from->prev)->next = to;
 
-		if (condition1 && condition2 && condition3) {
-			to->next = target->next;
-			to->prev = target->prev;
-
-			(target->next)->prev = to;
-			(target->prev)->next = to;
-
-			delete target;
-			return;
-		}
-
-		target = target->next;
-	}
-
-	return;
+	delete from;
 }
 
 
@@ -336,25 +227,10 @@ void
 double_list::d_list_remove (d_list_elem *elem)
 {
   /*** MODIFY HERE ***/
-	d_list_elem* target = head->next;
+	(elem->next)->prev = elem->prev;
+	(elem->prev)->next = elem->next;
 
-	while (target != tail) {
-		bool condition1 = (target->data1 == elem->data1);
-		bool condition2 = (target->data2 == elem->data2);
-		bool condition3 = (target->data3 == elem->data3);
-
-		if (condition1 && condition2 && condition3) {
-			(target->next)->prev = target->prev;
-			(target->prev)->next = target->next;
-
-			delete target;
-			return;
-		}
-
-		target = target->next;
-	}
-
-	return;
+	delete elem;
 }
 
 /* Returns true if LIST is empty, false otherwise. */

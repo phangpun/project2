@@ -98,10 +98,7 @@ int main(int argc, char* argv[])
 
 	while (!Input_List.list_empty()) {
 		Next_Input_Element = Input_List.list_next(Input_Element);
-
 		int Message_Num = Input_List.list_get_data1(Input_Element);
-		
-		
 
 		list_elem *Sorted_Element = new list_elem(*Input_Element);
 

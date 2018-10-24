@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-
+#include <iterator>
 #include <string>
 
 using namespace std;
@@ -72,16 +72,46 @@ class d_list_elem{
 /* Doubly Linked List. */
 class double_list{
 
- private:
-  d_list_elem *head; /* List head. */
-  d_list_elem *tail; /* List tail. */
-  
- public:
+	private:
+		d_list_elem *head; /* List head. */
+		d_list_elem *tail; /* List tail. */
 
-  class Iter {
 
-  };
+
   
+	public:
+		/* List constructor. */
+		double_list();
+
+		/* List destructor. */
+		~double_list();
+
+		void d_list_insert_front(d_list_elem *);
+		void d_list_insert_back(d_list_elem *elem);
+
+		d_list_elem* d_list_front(void);
+
+		bool double_list::d_list_empty(void);
+
+
+		
+	class Iter : public std::iterator<std::bidirectional_iterator_tag, d_list_elem> {
+		
+	public:
+		int& operator*();
+		bool operator==(const Iter& p) const;
+		bool operator!=(const Iter& p) const;
+		Iter& operator++();
+		Iter& operator--();
+		friend class double_list;
+	private:
+		d_list_elem * Element = NULL;
+		Iter(d_list_elem* e);
+	};
+  
+
+	Iter begin() const;
+	Iter end() const;
 };
 
 

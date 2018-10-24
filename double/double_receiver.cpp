@@ -90,22 +90,20 @@ int main(int argc, char* argv[])
 		if (packet_num > maximum_packet_number) maximum_packet_number = packet_num;
 	}
 	
-	//single_list Message_Sorted_List;
+	//double_list Message_Sorted_List;
 	double_list** Message_Sorted_List = new double_list*[maximum_message_number];
 	for (int i = 0; i < maximum_message_number; i++) {
 		double_list* New_List = new double_list;
 		Message_Sorted_List[i] = New_List;
 	}
-	Message_Sorted_List[1];
 
 
 	d_list_elem *Input_Element = Input_List.d_list_front();
 	d_list_elem *Next_Input_Element = NULL;
 
 	while (!Input_List.d_list_empty()) {
-		int Message_Num = Input_List.d_list_get_data1(Input_Element);
-
 		Next_Input_Element = Input_List.d_list_next(Input_Element);
+		int Message_Num = Input_List.d_list_get_data1(Input_Element);
 
 		d_list_elem *Sorted_Element = new d_list_elem(*Input_Element);
 
@@ -132,9 +130,8 @@ int main(int argc, char* argv[])
 		int Present_packet_num = Target_List->d_list_get_data2(Present_Element);
 		int Next_packet_num = 0;
 
-		while (Present_Element != Target_List->d_list_tail()) {
+		while (Target_List->d_list_next(Present_Element) != Target_List->d_list_tail()) {
 			Next_Element = Target_List->d_list_next(Present_Element);
-			if (Next_Element == Target_List->d_list_tail()) break;
 			Next_packet_num = Target_List->d_list_get_data2(Next_Element);
 
 
@@ -147,18 +144,17 @@ int main(int argc, char* argv[])
 			}
 			else if (Present_packet_num > Next_packet_num) {
 				d_list_elem* Element = new d_list_elem(*Next_Element);
-				Target_List->d_list_remove(Next_Element);
 				Target_List->d_list_insert_before(Present_Element, Element);
 
+				Target_List->d_list_remove(Next_Element);
+
 				if (Before_Element == Target_List->d_list_head()) {
-					Next_Element = Present_Element;
 					Present_Element = Element;
 					Present_packet_num = Target_List->d_list_get_data2(Present_Element);
 					continue;
 				}
 				else {
 					Present_Element = Before_Element;
-					Next_Element = Element;
 					Present_packet_num = Target_List->d_list_get_data2(Present_Element);
 
 					Before_Element = Target_List->d_list_prev(Present_Element);
