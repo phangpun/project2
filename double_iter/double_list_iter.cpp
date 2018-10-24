@@ -42,6 +42,7 @@ using namespace std;
 
 
 
+//same with double_list.cpp
 double_list::double_list()
 {
 	/*** MODIFY HERE ***/
@@ -51,6 +52,7 @@ double_list::double_list()
 	tail->prev = head;
 }
 
+//same with double_list.cpp
 double_list::~double_list()
 {
 	/*** MODIFY HERE ***/
@@ -66,6 +68,7 @@ double_list::~double_list()
 	delete tail;
 }
 
+//same with double_list.cpp
 void
 double_list::d_list_insert_front(d_list_elem *elem)
 {
@@ -77,6 +80,7 @@ double_list::d_list_insert_front(d_list_elem *elem)
 	head->next = elem;
 }
 
+//same with double_list.cpp
 void
 double_list::d_list_insert_back(d_list_elem *elem)
 {
@@ -88,6 +92,7 @@ double_list::d_list_insert_back(d_list_elem *elem)
 	tail->prev = elem;
 }
 
+//same with double_list.cpp
 d_list_elem *
 double_list::d_list_front(void)
 {
@@ -96,6 +101,7 @@ double_list::d_list_front(void)
 	else return head->next;
 }
 
+//same with double_list.cpp
 bool
 double_list::d_list_empty(void)
 {
@@ -104,6 +110,10 @@ double_list::d_list_empty(void)
 	else return false;
 }
 
+
+
+//Iteration implementation
+//almost same with text book
 
 double_list::Iter::Iter(d_list_elem* e) {
 	Element = e;

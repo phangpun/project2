@@ -46,9 +46,10 @@ single_list::single_list()
 single_list::~single_list()
 {
   /*** MODIFY HERE ***/
+	//delete all element of single_list
 	list_elem* element_pointer = head;
 	list_elem* next_element_pointer = NULL;
-	if (element_pointer != NULL) {
+	if (element_pointer != NULL) {//until no element in list
 		while (element_pointer != NULL) {
 			next_element_pointer = element_pointer->next;
 			delete element_pointer;
@@ -117,7 +118,7 @@ single_list::list_insert_before (list_elem *before, list_elem *elem)
 		list_insert_front(elem);
 	}
 	else {
-		list_elem* prev_pointer = head;
+		list_elem* prev_pointer = head; //find previous pointer of before
 		while (prev_pointer->next != before) {
 			prev_pointer = prev_pointer->next;
 		}
@@ -147,7 +148,7 @@ single_list::list_replace (list_elem *from, list_elem *to)
 		delete from;
 	}
 	else {
-		list_elem* prev_pointer = head;
+		list_elem* prev_pointer = head; //find previous pointer of before
 		while (prev_pointer->next != from) {
 			prev_pointer = prev_pointer->next;
 		}
@@ -168,7 +169,7 @@ single_list::list_remove (list_elem *elem)
 		delete elem;
 	}
 	else {
-		list_elem* prev_pointer = head;
+		list_elem* prev_pointer = head; //find previous pointer of before
 		while (prev_pointer->next != elem) {
 			prev_pointer = prev_pointer->next;
 		}

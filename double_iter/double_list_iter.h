@@ -72,29 +72,23 @@ class d_list_elem{
 /* Doubly Linked List. */
 class double_list{
 
-	private:
-		d_list_elem *head; /* List head. */
-		d_list_elem *tail; /* List tail. */
-
-
-
+private:
+	d_list_elem *head; //same with double_list.h / double_list.cpp
+	d_list_elem *tail; //same with double_list.h / double_list.cpp
   
-	public:
-		/* List constructor. */
-		double_list();
-
-		/* List destructor. */
-		~double_list();
-
-		void d_list_insert_front(d_list_elem *);
-		void d_list_insert_back(d_list_elem *elem);
-
-		d_list_elem* d_list_front(void);
-
-		bool double_list::d_list_empty(void);
-
-
+public:
 		
+	double_list();//same with double_list.h / double_list.cpp
+	~double_list();//same with double_list.h / double_list.cpp
+
+	void d_list_insert_front(d_list_elem *); //same with double_list.h / double_list.cpp
+	void d_list_insert_back(d_list_elem *elem); //same with double_list.h / double_list.cpp
+
+	d_list_elem* d_list_front(void); //same with double_list.h / double_list.cpp
+	bool double_list::d_list_empty(void); //same with double_list.h / double_list.cpp
+
+
+	//custom iterator implementation
 	class Iter : public std::iterator<std::bidirectional_iterator_tag, d_list_elem> {
 		
 	public:

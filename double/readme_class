@@ -1,0 +1,1 @@
+In single_list.cpp, I use prev_pointer list_elem* variable to find previous pointer of target list_elem.

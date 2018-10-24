@@ -61,6 +61,7 @@ double_list::double_list()
 double_list::~double_list()
 {
   /*** MODIFY HERE ***/
+    //delete all element of double_list
 	while (head->next != tail) {
 		d_list_elem *target = head->next;
 

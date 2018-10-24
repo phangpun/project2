@@ -1,0 +1,19 @@
+There is 4 part in receiver
+
+Part 1. read data and save data as single_list/double_list.
+All data of input file are converted to list_elem and saved to one single_list/double_list.
+And check the number of message.
+
+Part 2. sort all data by message number
+I make pointer array referring to single_list/double_list whose size is (message_number).
+Each list has data which have same message number
+
+Part 3. sort all data by packet number
+After Part 2, what we care is sorting data by packet number.
+Sorting rule is that if same packet number then remove previous one and 
+if next packet number is smaller than previous one then swap data
+
+Part 4. write the result
+In writting process, if there is the gap bigger than 1, WARNNING is written.
+
+Time check is done from Part 1 to Part4.
